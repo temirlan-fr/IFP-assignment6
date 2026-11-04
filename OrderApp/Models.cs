@@ -14,3 +14,5 @@ public sealed record Order(
     int Quantity,
     decimal Total
 );
+
+public sealed record Checkout(Order Order, Catalog UpdatedCatalog);

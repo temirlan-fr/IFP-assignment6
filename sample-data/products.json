@@ -1,0 +1,5 @@
+[
+  { "Id": 1, "Name": "Keyboard", "Price": 15000, "Stock": 5, "IsActive": true },
+  { "Id": 2, "Name": "Mouse", "Price": 7000, "Stock": 10, "IsActive": false },
+  { "Id": 3, "Name": "USB Cable", "Price": 1000, "Stock": 0, "IsActive": true }
+]

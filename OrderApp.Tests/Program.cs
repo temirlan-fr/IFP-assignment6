@@ -44,7 +44,7 @@ var tests = new (string Name, Action Run)[]
         RequireFailure(OrderService.CreateOrder(product, 6));
         Equal(snapshot, product);
     })
-};
+}.Concat(WorkflowTests.All()).ToArray();
 
 int failures = 0;
 
