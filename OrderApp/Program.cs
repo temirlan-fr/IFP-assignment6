@@ -51,8 +51,11 @@ static int RunDemo(string path, string dataDirectory)
     PrintResult("Inactive product", app.Submit(2, 1), FormatOrder);
     PrintResult("Insufficient stock", app.Submit(1, 6), FormatOrder);
 
-    ShowOption("Present lookup", app.CurrentCatalog.Find(1));
-    ShowOption("Missing lookup", app.CurrentCatalog.Find(999));
+    Console.WriteLine(" Task 3: Handle a Missing Item ");
+
+    ShowProductLookup(app.CurrentCatalog, 1);
+    ShowProductLookup(app.CurrentCatalog, 999);
+    ShowProductLookup(app.CurrentCatalog, 3);
     PrintResult("Required missing product", app.Submit(999, 1), FormatOrder);
     ShowOption("Present zero stock", app.CurrentCatalog.FindStock(3));
     ShowOption("Absent stock", app.CurrentCatalog.FindStock(999));
@@ -105,4 +108,34 @@ static void ShowOption<T>(string label, Option<T> option) where T : notnull
         Option<T>.None => $"{label}: absent",
         _ => throw new InvalidOperationException("Unknown option case.")
     });
+}
+
+static void ShowProductLookup(Catalog catalog, int productId)
+{
+    Option<Product> result = catalog.Find(productId);
+
+    switch (result)
+    {
+        case Option<Product>.Some found:
+            Product product = found.Value;
+
+            Console.WriteLine(
+                $"Product found: {product.Name}. Stock: {product.Stock}."
+            );
+
+            if (product.Stock == 0)
+            {
+                Console.WriteLine(
+                    "The product exists, but its stock is zero."
+                );
+            }
+
+            break;
+
+        case Option<Product>.None:
+            Console.WriteLine(
+                $"Product with ID {productId} was not found."
+            );
+            break;
+    }
 }
